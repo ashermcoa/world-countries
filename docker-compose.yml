@@ -1,0 +1,71 @@
+version: '3.3'
+
+services:
+
+  api:
+    container_name: api
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile-dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - './services/api:/usr/src/app'
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    build:
+      context: ./services/api/db
+      dockerfile: Dockerfile
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_DB=world
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  # nginx:
+  #   container_name: nginx
+  #   build: ./services/nginx
+  #   restart: always
+  #   ports:  
+  #     - 80:80
+  #   depends_on:
+  #     - api
+  #     - client
+  #     - swagger
+  #   links:
+  #     - api
+
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: ./services/client
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - './services/client:/usr/src/app'
+  #   ports:
+  #     - '3007:3000' 
+  #   environment:
+  #     - NODE_ENV=development
+  #   depends_on:
+  #     - api
+  #   links:
+  #     - api
+
+  # swagger:
+  #   container_name: swagger
+  #   build:
+  #     context: ./services/swagger
+  #     dockerfile: Dockerfile-dev
+  #   volumes:
+  #     - './services/swagger/swagger.json:/usr/share/nginx/html/swagger.json'
+  #   ports:
+  #     - '3008:8080'
+  #   environment:
+  #     - URL=swagger.json
+  #   depends_on:
+  #     - api

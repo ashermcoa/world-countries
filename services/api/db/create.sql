@@ -1,0 +1,2 @@
+CREATE DATABASE world;
+CREATE DATABASE world_test;
