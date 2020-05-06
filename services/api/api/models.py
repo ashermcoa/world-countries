@@ -14,6 +14,9 @@ class City(models.Model):
         verbose_name_plural = 'Cities'
         db_table = 'city'
 
+    def __str__(self):
+        return self.name
+
 
 class Country(models.Model):
     code = models.CharField(primary_key=True, max_length=3)
@@ -29,7 +32,11 @@ class Country(models.Model):
     localname = models.TextField()
     governmentform = models.TextField()
     headofstate = models.TextField(blank=True, null=True)
-    capital = models.ForeignKey(City, models.CASCADE, db_column='capital', blank=True, null=True)
+    capital = models.ForeignKey(City, models.CASCADE,
+                                related_name="Capital",
+                                db_column='capital',
+                                blank=True,
+                                null=True)
     code2 = models.CharField(max_length=2)
 
     class Meta:
@@ -37,6 +44,9 @@ class Country(models.Model):
         constraints = [
             models.CheckConstraint(check=Q(continent__in=continents), name='country_continent_check')
         ]
+
+    def __str__(self):
+        return self.name
 
 
 class CountryLanguage(models.Model):

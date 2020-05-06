@@ -20,16 +20,33 @@ class CityType(DjangoObjectType):
         model = City
 
 
+class CountryRegion(graphene.ObjectType):
+    region = graphene.String()
+
+
 class Query(graphene.ObjectType):
     countries = graphene.List(CountryType, search=graphene.String())
     cities = graphene.List(CityType)
     languages = graphene.List(CountryLanguageType)
+    cities_by_country = graphene.List(CityType, country_code=graphene.String())
+    countries_by_region = graphene.List(CountryType, region=graphene.String())
+    regions_by_continent = graphene.Field(CountryRegion, continent=graphene.String())
 
     def resolve_countries(self, info, search=None):
         return Country.objects.all()
 
     def resolve_cities(self, info):
         return City.objects.all()
+
+    def resolve_cities_by_country(self, _, country_code):
+        return City.objects.filter(countrycode=country_code)
+
+    def resolve_regions_by_continent(self, _, continent):
+        country = Country.objects.get(continent=continent)
+        return CountryRegion(region=country.region)
+
+    def resolve_countries_by_region(self, _, region):
+        return Country.objects.filter(region=region)
 
 
 class CreateCity(graphene.Mutation):
@@ -41,8 +58,8 @@ class CreateCity(graphene.Mutation):
         district = graphene.String()
         population = graphene.Int()
 
-    def mutate(self, _, name, country_code, district, population):
-        city = City(name=name, countrycode=country_code, district=district, population=population)
+    def mutate(self, _, name, countrycode, district, population):
+        city = City(name=name, countrycode=countrycode, district=district, population=population)
         city.save()
         return CreateCity(city=city)
 
