@@ -4,3 +4,4 @@ gunicorn
 coverage
 flake8
 graphene-django
+django-cors-headers

@@ -11,6 +11,7 @@ class City(models.Model):
     population = models.IntegerField()
 
     class Meta:
+        db_table = 'city'
         verbose_name_plural = 'Cities'
         db_table = 'city'
 
@@ -40,6 +41,7 @@ class Country(models.Model):
     code2 = models.CharField(max_length=2)
 
     class Meta:
+        db_table = 'country'
         verbose_name_plural = 'Countries'
         constraints = [
             models.CheckConstraint(check=Q(continent__in=continents), name='country_continent_check')
@@ -50,12 +52,12 @@ class Country(models.Model):
 
 
 class CountryLanguage(models.Model):
-    countrycode = models.OneToOneField(Country, models.CASCADE, db_column='countrycode', primary_key=True)
+    countrycode = models.ForeignKey(Country, models.CASCADE, db_column='countrycode')
     language = models.TextField()
     isofficial = models.BooleanField()
     percentage = models.FloatField()
 
     class Meta:
-        verbose_name_plural = 'Country Languages'
         db_table = 'countrylanguage'
-        unique_together = [['countrycode', 'language']]
+        verbose_name_plural = 'Country Languages'
+        # unique_together = [['countrycode', 'language']]
