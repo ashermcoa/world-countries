@@ -1,28 +1,25 @@
 version: '3'
 
 services:
-
   api:
     container_name: api
     build:
       context: ./services/api
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile
     # command: gunicorn world.wsgi:application --bind 0.0.0.0:8000
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:80
     volumes:
-      - './services/api:/usr/src/app'
+      - api_code:/usr/src/app'
     ports:
-      - "8000:8000"
+      - '80:80'
     env_file:
       - ./.env
     depends_on:
       - db
 
   db:
+    image: postgres
     container_name: db
-    build:
-      context: ./services/api/db
-      dockerfile: Dockerfile
     ports:
       - 5435:5432
     volumes:
@@ -34,29 +31,28 @@ services:
   #   container_name: nginx
   #   build: ./services/nginx
   #   restart: always
-  #   ports:  
+  #   ports:
   #     - 80:80
   #   depends_on:
   #     - api
   #     - client
   #   links:
   #     - api
-
   # client:
   #   container_name: client
   #   build:
   #     context: ./services/client
-  #     dockerfile: Dockerfile
+  #     dockerfile: Dockerfile.prod
+  #     args:
+  #       - NODE_ENV=development
   #   volumes:
-  #     - './services/client:/usr/src/app'
+  #     - '.:/app'
+  #     - '/app/node_modules'
   #   ports:
-  #     - '3007:3000' 
+  #     - '3000:3000'
   #   environment:
   #     - NODE_ENV=development
-  #   depends_on:
-  #     - api
-  #   links:
-  #     - api
 
 volumes:
   postgres_data:
+  api_code:
