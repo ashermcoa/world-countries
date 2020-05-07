@@ -13,4 +13,7 @@ Builds docker files and images
 Starts up the application
 Open [localhost](127.0.0.1:80) once all containers have spun up
 
+### Todo
+> Write tests
+
 ####Note: README Update in progress
