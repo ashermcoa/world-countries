@@ -19,6 +19,10 @@ You need to have [Docker](https://www.docker.com/get-started)  installed on your
 [Clone the front-end application](https://github.com/ashermcoa/world-countries-ui)
 
 ## Running the application
+
+### Initial steps
+Create a `.env` and `.env.db` files as shown in the examples files 
+
 You may need to give executable rights to `entrypoint.sh` file in your project root directory.
 
 Build docker images and spin up db and api containers
