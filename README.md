@@ -21,12 +21,12 @@ You need to have [Docker](https://www.docker.com/get-started)  installed on your
 ## Running the application
 
 ### Initial steps
-Create a `.env` and `.env.db` files as shown in the examples files 
+Create a `.env` and `.env.db` files as shown in the example files in the project root 
 
 You may need to give executable rights to `entrypoint.sh` file in your project root directory.
 
 Build docker images and spin up db and api containers
-#### `$ docker-compose build -d --build`
+#### `$ docker-compose up -d --build`
 
 Run django migrations
 #### `$ docker-compose exec world-start-api python manage.py makemigrations api`
