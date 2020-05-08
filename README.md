@@ -10,6 +10,7 @@ To run this project locally, clone or download this repository in your prereferr
 ### Prerequisites
 
 You need to have [Docker](https://www.docker.com/get-started)  installed on your compose
+[Clone the front-end application](https://github.com/ashermcoa/world-countries-ui)
 
 ## Running the application
 You may need to give executable rights to `entrypoint.sh` file in your project root directory.
