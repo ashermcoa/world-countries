@@ -3,13 +3,19 @@
 
 One Paragraph of project description goes here
 
+### Demo
+[Front-end application](http://world-countries-api.s3-website.eu-west-3.amazonaws.com)
+
+[GraphQL Endpoint](http://ec2-35-180-247-1.eu-west-3.compute.amazonaws.com/graphql/)
+
 ## Getting Started
 
-To run this project locally, clone or download this repository in your prereferred directory/
+To run this project locally, clone or download this repository in your prereferred directory.
 
 ### Prerequisites
 
 You need to have [Docker](https://www.docker.com/get-started)  installed on your compose
+
 [Clone the front-end application](https://github.com/ashermcoa/world-countries-ui)
 
 ## Running the application
