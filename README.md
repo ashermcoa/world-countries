@@ -22,7 +22,7 @@ Run django migrations
 #### `$ docker-compose exec world-start-api python manage.py migrate`
 
 Confirm that the 3 tables have been created
-#### `docker-compose exec world-start-api-db psql -U docker -d world_stats`
+#### `$ docker-compose exec world-start-api-db psql -U docker -d world_stats`
 
 ```
 $ docker-compose exec world-start-api-db psql -U docker -d world_stats
@@ -94,17 +94,10 @@ Once you are done, run this query. This ensures that we can continue to add citi
 ### Accessing application endpoints 
 Navigate to [http://localhost:8000/graphql/](http://localhost:8000/graphql/) to open the GraphQL server
 
-```
-Give an example
-```
-
 ### And coding style tests
 
-Explain what these tests test and why
+Pep8 Python styles have been used for formatting 
 
-```
-Give an example
-```
 
 ## Built With
 
