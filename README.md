@@ -99,7 +99,8 @@ End with a backslash and a period on a line by itself, or an EOF signal.
 4079	Rafah	PSE	Rafah	92020
 \.
 ```
-Once you are done, run this query. This ensures that we can continue to add cities from the front-end
+Once you are done, run the query below. This ensures that we can continue to add cities from the front-end.
+
 `select setval('city_id_seq', 4080);`
 
 ### Accessing application endpoints 
