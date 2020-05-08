@@ -1,0 +1,7 @@
+[run]
+ branch = True
+ source = .
+ omit =
+  manage.py
+  tests
+  /migrations/
