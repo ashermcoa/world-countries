@@ -6,7 +6,7 @@ One Paragraph of project description goes here
 ### Demo
 [Front-end application](http://world-countries-api.s3-website.eu-west-3.amazonaws.com)
 
-[GraphQL Endpoint](http://ec2-35-180-247-1.eu-west-3.compute.amazonaws.com/graphql/)
+[GraphQL Endpoint](http://ec2-15-188-83-208.eu-west-3.compute.amazonaws.com/graphql/)
 
 ## Getting Started
 
@@ -104,7 +104,7 @@ Once you are done, run the query below. This ensures that we can continue to add
 `select setval('city_id_seq', 4080);`
 
 ### Accessing application endpoints 
-Navigate to [http://localhost:8000/graphql/](http://localhost:8000/graphql/) to open the GraphQL server
+Navigate to [http://localhost:8000/graphql/](http://localhost:80/graphql/) to open the GraphQL server
 
 ### And coding style tests
 
