@@ -1,7 +1,5 @@
 import graphene
 from graphene_django import DjangoObjectType
-from graphene.types import String
-from django.db.models import Q
 
 from .models import Country, CountryLanguage, City, continents
 
@@ -37,19 +35,23 @@ class Query(graphene.ObjectType):
                                           continent=graphene.String())
     all_continents = graphene.Field(Continent)
 
-    def resolve_cities_by_country(self, _, country_code):
-        return City.objects.filter(countrycode=country_code)
+    @staticmethod
+    def resolve_cities_by_country(_, country_code):
+        return City.objects.filter(country_code=country_code)
 
-    def resolve_regions_by_continent(self, _, continent):
+    @staticmethod
+    def resolve_regions_by_continent(_, continent):
         continent_regions = Country.objects.filter(continent=continent).values(
             'region')
         regions = set(map(lambda reg: reg['region'], continent_regions))
         return CountryRegion(regions=regions)
 
-    def resolve_countries_by_region(self, _, region):
+    @staticmethod
+    def resolve_countries_by_region(_, region):
         return Country.objects.filter(region=region)
 
-    def resolve_all_continents(self, _):
+    @staticmethod
+    def resolve_all_continents(_):
         return Continent(continents=sorted(continents))
 
 
@@ -58,12 +60,13 @@ class CreateCity(graphene.Mutation):
 
     class Arguments:
         name = graphene.String()
-        countrycode = graphene.String()
+        country_code = graphene.String()
         district = graphene.String()
         population = graphene.Int()
 
-    def mutate(self, _, name, countrycode, district, population):
-        city = City(name=name, countrycode=countrycode, district=district,
+    @staticmethod
+    def mutate(self, _, name, country_code, district, population):
+        city = City(name=name, country_code=country_code, district=district,
                     population=population)
         city.save()
         return CreateCity(city=city)
@@ -79,11 +82,12 @@ class UpdateCity(graphene.Mutation):
         district = graphene.String(required=False)
         population = graphene.String(required=False)
 
+    @staticmethod
     def mutate(self, _, city_id, **kwargs):
         city = City.objects.get(id=city_id)
         city.name = kwargs.get('name', city.name)
-        city.countrycode = kwargs.get('country_code', city.countrycode)
-        city.district = kwargs.get('dictrict', city.district)
+        city.country_code = kwargs.get('country_code', city.country_code)
+        city.district = kwargs.get('district', city.district)
         city.population = kwargs.get('population', city.population)
         city.save()
         return UpdateCity(city=city)
@@ -95,6 +99,7 @@ class DeleteCity(graphene.Mutation):
     class Arguments:
         city_id = graphene.String(required=True)
 
+    @staticmethod
     def mutate(self, _, city_id):
         city = City.objects.get(id=city_id)
         print(city)

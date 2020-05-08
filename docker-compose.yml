@@ -1,25 +1,32 @@
-version: '3'
+version: '3.3'
 
 services:
-  api:
-    container_name: api
+  world-start-api:
+    container_name: world-start-api
     build:
-      context: ./services/api
+      context: .
       dockerfile: Dockerfile
     # command: gunicorn world.wsgi:application --bind 0.0.0.0:8000
-    command: python manage.py runserver 0.0.0.0:80
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - api_code:/usr/src/app'
+    networks:
+      - world-stats
     ports:
-      - '80:80'
+      - '8000:8000'
     env_file:
       - ./.env
     depends_on:
-      - db
+      - world-start-api-db
 
-  db:
-    image: postgres
-    container_name: db
+  world-start-api-db:
+    container_name: world-start-api-db
+    restart: always
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    networks:
+    - world-stats
     ports:
       - 5435:5432
     volumes:
@@ -27,32 +34,11 @@ services:
     env_file:
       - ./.env.db
 
-  # nginx:
-  #   container_name: nginx
-  #   build: ./services/nginx
-  #   restart: always
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - api
-  #     - client
-  #   links:
-  #     - api
-  # client:
-  #   container_name: client
-  #   build:
-  #     context: ./services/client
-  #     dockerfile: Dockerfile.prod
-  #     args:
-  #       - NODE_ENV=development
-  #   volumes:
-  #     - '.:/app'
-  #     - '/app/node_modules'
-  #   ports:
-  #     - '3000:3000'
-  #   environment:
-  #     - NODE_ENV=development
-
 volumes:
   postgres_data:
   api_code:
+
+networks:
+  world-stats:
+    external:
+      name: world-stats
