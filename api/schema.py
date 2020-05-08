@@ -35,23 +35,21 @@ class Query(graphene.ObjectType):
                                           continent=graphene.String())
     all_continents = graphene.Field(Continent)
 
-    @staticmethod
-    def resolve_cities_by_country(_, country_code):
+    def resolve_cities_by_country(self, info, country_code):
         return City.objects.filter(country_code=country_code)
 
-    @staticmethod
-    def resolve_regions_by_continent(_, continent):
+    def resolve_regions_by_continent(self, _, continent):
         continent_regions = Country.objects.filter(continent=continent).values(
             'region')
+        print('Continents')
+        print(continent_regions)
         regions = set(map(lambda reg: reg['region'], continent_regions))
         return CountryRegion(regions=regions)
 
-    @staticmethod
-    def resolve_countries_by_region(_, region):
+    def resolve_countries_by_region(self, info, region):
         return Country.objects.filter(region=region)
 
-    @staticmethod
-    def resolve_all_continents(_):
+    def resolve_all_continents(self, _):
         return Continent(continents=sorted(continents))
 
 
@@ -64,7 +62,6 @@ class CreateCity(graphene.Mutation):
         district = graphene.String()
         population = graphene.Int()
 
-    @staticmethod
     def mutate(self, _, name, country_code, district, population):
         city = City(name=name, country_code=country_code, district=district,
                     population=population)
@@ -82,7 +79,6 @@ class UpdateCity(graphene.Mutation):
         district = graphene.String(required=False)
         population = graphene.String(required=False)
 
-    @staticmethod
     def mutate(self, _, city_id, **kwargs):
         city = City.objects.get(id=city_id)
         city.name = kwargs.get('name', city.name)
@@ -99,7 +95,6 @@ class DeleteCity(graphene.Mutation):
     class Arguments:
         city_id = graphene.String(required=True)
 
-    @staticmethod
     def mutate(self, _, city_id):
         city = City.objects.get(id=city_id)
         print(city)
