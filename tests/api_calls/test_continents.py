@@ -1,4 +1,4 @@
-from graphene_django.utils.testing import GraphQLTestCase, TestCase
+from graphene_django.utils.testing import GraphQLTestCase
 from world.schema import schema
 
 

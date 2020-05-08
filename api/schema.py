@@ -27,7 +27,7 @@ class Continent(graphene.ObjectType):
     continents = graphene.List(graphene.String)
 
 
-class   Query(graphene.ObjectType):
+class Query(graphene.ObjectType):
     languages = graphene.List(CountryLanguageType)
     cities_by_country = graphene.List(CityType, country_code=graphene.String())
     countries_by_region = graphene.List(CountryType, region=graphene.String())

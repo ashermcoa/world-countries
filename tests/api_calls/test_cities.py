@@ -10,27 +10,22 @@ class RegionsTestCase(GraphQLTestCase):
     def create_city(self, variables):
         response = self.query(
             '''
-              mutation CreateCity(
-                $name: String!
-                $countryCode: String!
+            mutation CreateCity($name: String! $countryCode: String!
                 $district: String!
-                $population: Int!
-              ) {
-                createCity(
-                  name: $name
-                  countryCode: $countryCode
-                  district: $district
-                  population: $population
-                ) {
-                  city {
-                    id
-                  }
-                }
+                $population: Int!) {
+                    createCity(
+                        name: $name
+                        countryCode: $countryCode
+                        district: $district
+                        population: $population) {
+                            city {
+                                id
+                        }
+                    }
               }
-            ''',
+              ''',
             op_name='CreateCity',
-            variables=variables
-        )
+            variables=variables)
         content = json.loads(response.content)
         return content
 
@@ -132,7 +127,7 @@ class RegionsTestCase(GraphQLTestCase):
 
     def test_valid_city_update_mutation(self):
         prev_city_variables = {'name': 'City A', 'countryCode': 'KCE',
-                     'district': 'DS', 'population': 4565}
+                               'district': 'DS', 'population': 4565}
         prev_content = self.create_city(prev_city_variables)
         city_id = prev_content['data']['createCity']['city']['id']
         response = self.query(
@@ -203,7 +198,7 @@ class RegionsTestCase(GraphQLTestCase):
 
     def test_valid_city_delete_mutation(self):
         city_variables = {'name': 'City A', 'countryCode': 'KCE',
-                               'district': 'DS', 'population': 4565}
+                          'district': 'DS', 'population': 4565}
         city = self.create_city(city_variables)
         city_id = city['data']['createCity']['city']['id']
         response = self.query(

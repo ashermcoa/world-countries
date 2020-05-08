@@ -112,7 +112,7 @@ Run tests included in the project
 View code coverage by opening `htmlcov/index.html` after running this command 
 #### `$ docker-compose exec world-start-api coverage html              `
 
-### And coding style tests
+### Coding style tests
 
 Pep8 Python styles have been used for formatting 
 
@@ -122,7 +122,3 @@ Pep8 Python styles have been used for formatting
 - [Python 3](https://docs.python.org/3/) 
 - [Django](https://docs.djangoproject.com/en/3.0) The backend framework
 - [GraphQL](https://graphql.org/) - Used for building the API
-
-## Todo
-* Write tests
-* Add test coverage
