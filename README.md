@@ -9,7 +9,7 @@ To run this project locally, clone or download this repository in your prereferr
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You need to have [Docker](https://www.docker.com/get-started)  installed on your compose
 
 ## Running the application
 You may need to give executable rights to `entrypoint.sh` file in your project root directory.
