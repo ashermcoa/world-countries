@@ -80,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'world.wsgi.application'
 
+TEST_RUNNER = 'snapshottest.django.TestRunner'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 DATABASES = {

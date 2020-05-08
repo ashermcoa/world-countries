@@ -9,7 +9,7 @@ services:
     # command: gunicorn world.wsgi:application --bind 0.0.0.0:8000
     command: python manage.py runserver 0.0.0.0:80
     volumes:
-      - api_code:/usr/src/app'
+      - '.:/usr/src/app'
     networks:
       - world-stats
     ports:
@@ -36,7 +36,6 @@ services:
 
 volumes:
   postgres_data:
-  api_code:
 
 networks:
   world-stats:

@@ -105,6 +105,13 @@ Once you are done, run the query below. This ensures that we can continue to add
 ### Accessing application endpoints 
 Navigate to [http://localhost:8000/graphql/](http://localhost:80/graphql/) to open the GraphQL server
 
+### Running tests
+Run tests included in the project
+#### `$ docker-compose exec world-start-api coverage run manage.py test`
+
+View code coverage by opening `htmlcov/index.html` after running this command 
+#### `$ docker-compose exec world-start-api coverage html              `
+
 ### And coding style tests
 
 Pep8 Python styles have been used for formatting 

@@ -27,7 +27,7 @@ class Continent(graphene.ObjectType):
     continents = graphene.List(graphene.String)
 
 
-class Query(graphene.ObjectType):
+class   Query(graphene.ObjectType):
     languages = graphene.List(CountryLanguageType)
     cities_by_country = graphene.List(CityType, country_code=graphene.String())
     countries_by_region = graphene.List(CountryType, region=graphene.String())
@@ -41,8 +41,6 @@ class Query(graphene.ObjectType):
     def resolve_regions_by_continent(self, _, continent):
         continent_regions = Country.objects.filter(continent=continent).values(
             'region')
-        print('Continents')
-        print(continent_regions)
         regions = set(map(lambda reg: reg['region'], continent_regions))
         return CountryRegion(regions=regions)
 
@@ -97,7 +95,6 @@ class DeleteCity(graphene.Mutation):
 
     def mutate(self, _, city_id):
         city = City.objects.get(id=city_id)
-        print(city)
         city.delete()
         return DeleteCity(city_id=city_id)
 

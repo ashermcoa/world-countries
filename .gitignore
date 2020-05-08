@@ -3,6 +3,7 @@ env
 .env
 .env.db
 htmlcov/
+.coverage*
 jest_0/
 node_modules
 .DS_Store
