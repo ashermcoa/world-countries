@@ -1,4 +1,3 @@
-####Note: README Update in progress
 # World Stats API
 
 One Paragraph of project description goes here
